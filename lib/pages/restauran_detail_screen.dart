@@ -19,7 +19,7 @@ class RestauranDetailScreen extends StatelessWidget {
             child: Image.network(restaurant.pictureId),
           ),
           Padding(
-            padding: const EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(16.0),
             child:
                 Column(mainAxisAlignment: MainAxisAlignment.center, children: [
               Align(
@@ -33,17 +33,26 @@ class RestauranDetailScreen extends StatelessWidget {
                 ),
               ),
               Align(
-                alignment: AlignmentDirectional.centerStart,
-                child: Text(
-                  '${restaurant.rating}',
-                  style: const TextStyle(fontSize: 16),
-                ),
-              )
+                  alignment: AlignmentDirectional.centerStart,
+                  child: Row(
+                    children: [
+                      Text('Location ${restaurant.city}',
+                          style: const TextStyle(fontSize: 16)),
+                      const SizedBox(
+                        width: 4.0,
+                      ),
+                      Text(
+                        'Rating ${restaurant.rating}',
+                        style: const TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ))
             ]),
           ),
-          Text(restaurant.description),
-          const Divider(
-            color: Colors.grey,
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Text(restaurant.description),
           ),
         ]),
       ),
