@@ -52,7 +52,22 @@ class RestauranDetailScreen extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Text(restaurant.description),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  "Tentang restaurant ini",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 8.0),
+                Text(
+                  restaurant.description,
+                  textAlign: TextAlign.justify,
+                ),
+              ],
+            ),
           ),
         ]),
       ),
