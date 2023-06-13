@@ -70,6 +70,73 @@ class RestauranDetailScreen extends StatelessWidget {
               ],
             ),
           ),
+          const Divider(
+            height: 1,
+          ),
+          Container(
+            height: 100, // Adjust the height as needed
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Text(
+                    "Foods Menu",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: restaurant.menus?.foods.length,
+                    itemBuilder: (context, index) {
+                      final food = restaurant.menus?.foods[index];
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: Chip(
+                          label: Text(food?.name ?? ""),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            height: 100, // Adjust the height as needed
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Text(
+                    "Drinks Menu",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: restaurant.menus?.drinks.length,
+                    itemBuilder: (context, index) {
+                      final drink = restaurant.menus?.drinks[index];
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: Chip(
+                          label: Text(drink?.name ?? ""),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
+          )
         ]),
       ),
     );

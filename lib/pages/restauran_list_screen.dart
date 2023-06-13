@@ -21,7 +21,7 @@ class _RestauranListScreenState extends State<RestauranListScreen> {
         maxHeight: 150,
         child: Container(
             padding: EdgeInsets.symmetric(horizontal: 16.0),
-            color: Colors.lightBlue,
+            color: Colors.grey,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
