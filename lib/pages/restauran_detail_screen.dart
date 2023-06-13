@@ -12,9 +12,6 @@ class RestauranDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(restaurant.name),
-      ),
       body: SingleChildScrollView(
         child: Column(children: [
           Hero(
@@ -23,24 +20,31 @@ class RestauranDetailScreen extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.all(10.0),
-            child: Column(children: [
-              Text(restaurant.description),
-              const Divider(
-                color: Colors.grey,
+            child:
+                Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+              Align(
+                alignment: AlignmentDirectional.centerStart,
+                child: Text(
+                  restaurant.name,
+                  style: const TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 24),
+                ),
               ),
-              Text(
-                restaurant.name,
-                style: const TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 24),
-              ),
-              Text(
-                '${restaurant.rating}',
-                style: const TextStyle(fontSize: 16),
-              ),
+              Align(
+                alignment: AlignmentDirectional.centerStart,
+                child: Text(
+                  '${restaurant.rating}',
+                  style: const TextStyle(fontSize: 16),
+                ),
+              )
             ]),
-          )
+          ),
+          Text(restaurant.description),
+          const Divider(
+            color: Colors.grey,
+          ),
         ]),
       ),
     );

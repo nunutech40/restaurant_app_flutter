@@ -86,26 +86,77 @@ class _RestauranListScreenState extends State<RestauranListScreen> {
 }
 
 Widget _buildRestaurantItem(BuildContext context, Restaurant restaurant) {
-  return ListTile(
-    contentPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-    leading: Container(
-      width: 100,
-      child: Hero(
-        tag: restaurant.pictureId,
-        child: Image.network(
-          restaurant.pictureId,
-          fit: BoxFit.cover,
-          errorBuilder: (ctx, error, _) =>
-              const Center(child: Icon(Icons.error)),
-        ),
-      ),
-    ),
-    title: Text(restaurant.name),
-    subtitle: Text(restaurant.city),
+  return InkWell(
     onTap: () {
       Navigator.pushNamed(context, RestauranDetailScreen.routeName,
           arguments: restaurant);
     },
+    child: Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+      child: Row(
+        children: [
+          Container(
+            width: 100,
+            child: Hero(
+              tag: restaurant.pictureId,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10.0),
+                child: Image.network(
+                  restaurant.pictureId,
+                  fit: BoxFit.cover,
+                  errorBuilder: (ctx, error, _) =>
+                      const Center(child: Icon(Icons.error)),
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(width: 16.0),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  restaurant.name,
+                  style: const TextStyle(
+                      fontSize: 16.0, fontWeight: FontWeight.bold),
+                ),
+                Row(
+                  children: [
+                    const Icon(
+                      Icons.location_on,
+                      size: 16.0,
+                      color: Colors.grey,
+                    ),
+                    const SizedBox(width: 4.0),
+                    Text(
+                      restaurant.city,
+                      style:
+                          const TextStyle(fontSize: 14.0, color: Colors.grey),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 4.0),
+                Row(
+                  children: [
+                    const Icon(
+                      Icons.star,
+                      size: 16.0,
+                      color: Colors.grey,
+                    ),
+                    const SizedBox(width: 4.0),
+                    Text(
+                      '${restaurant.rating}',
+                      style:
+                          const TextStyle(fontSize: 14.0, color: Colors.grey),
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ),
+        ],
+      ),
+    ),
   );
 }
 
