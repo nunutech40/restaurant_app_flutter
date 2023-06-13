@@ -13,6 +13,8 @@ class RestauranListScreen extends StatefulWidget {
 }
 
 class _RestauranListScreenState extends State<RestauranListScreen> {
+  TextEditingController searchController = TextEditingController();
+
   SliverPersistentHeader _header(String text, String subText) {
     return SliverPersistentHeader(
       pinned: true,
@@ -69,17 +71,59 @@ class _RestauranListScreenState extends State<RestauranListScreen> {
 
   @override
   Widget build(BuildContext context) {
+    List<Restaurant> filteredRestaurants = restaurants.where((restaurant) {
+      final query = searchController.text.toLowerCase();
+      return restaurant.name.toLowerCase().contains(query) ||
+          restaurant.city.toLowerCase().contains(query);
+    }).toList();
+
     return CustomScrollView(
       slivers: [
         _header('Restaurant', 'Recommendation restauran for you!'),
-        SliverList(
-            delegate: SliverChildBuilderDelegate(
-          (BuildContext context, int index) {
-            final Restaurant restaurant = restaurants[index];
-            return _buildRestaurantItem(context, restaurant);
-          },
-          childCount: restaurants.length,
-        )),
+        SliverPadding(
+          padding: EdgeInsets.all(16.0),
+          sliver: SliverAppBar(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            floating: true,
+            pinned: true,
+            flexibleSpace: TextField(
+              controller: searchController,
+              decoration: InputDecoration(
+                hintText: 'Search for a restaurant',
+                filled: true,
+                fillColor: Colors.white,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                contentPadding: EdgeInsets.symmetric(horizontal: 16.0),
+              ),
+              onChanged: (value) {
+                setState(
+                    () {}); // Update the filtered list on search query change
+              },
+            ),
+          ),
+        ),
+        filteredRestaurants.isEmpty
+            ? const SliverToBoxAdapter(
+                child: Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: Text(
+                    'No restaurants found',
+                    style: TextStyle(fontSize: 16.0),
+                  ),
+                ),
+              )
+            : SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  (BuildContext context, int index) {
+                    final Restaurant restaurant = filteredRestaurants[index];
+                    return _buildRestaurantItem(context, restaurant);
+                  },
+                  childCount: filteredRestaurants.length,
+                ),
+              ),
       ],
     );
   }
